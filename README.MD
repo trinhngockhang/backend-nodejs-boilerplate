@@ -1,1 +1,1 @@
-# AI News Admin Backend
+# boilerplate for API by Nodejs
