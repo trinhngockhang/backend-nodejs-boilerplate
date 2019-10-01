@@ -1,0 +1,14 @@
+[ignore]
+dist
+dist_dev
+node_modules
+fake_data
+[include]
+
+[libs]
+
+[lints]
+
+[options]
+
+[strict]

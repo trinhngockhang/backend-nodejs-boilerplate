@@ -1,0 +1,12 @@
+{
+    "apps": [
+      {
+        "name": "node-start",
+        "script": "./dist/index.js",
+        "env": {
+          "PORT": 1503
+        }
+      }
+    ]
+  }
+  

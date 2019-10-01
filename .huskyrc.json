@@ -1,0 +1,6 @@
+{
+  "hooks": {
+    "pre-commit": "npx eslint src",
+    "pre-push": "npm test"
+  }
+}
