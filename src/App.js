@@ -5,7 +5,6 @@ import routers from './components/router';
 import bodyParser from 'body-parser';
 import morgan from 'morgan';
 import { authMiddleware, errorHandler, ok, corsMiddleware } from './middleware';
-
 // Log
 import { logger } from './util/logUtil';
 

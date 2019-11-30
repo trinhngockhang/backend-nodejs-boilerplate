@@ -17,6 +17,7 @@
     "@elastic/elasticsearch": "^7.1.0",
     "bcrypt": "^3.0.6",
     "bcrypt-nodejs": "0.0.3",
+    "civic-sip-api": "^1.2.0",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
     "express": "^4.16.4",

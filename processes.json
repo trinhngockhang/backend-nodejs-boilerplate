@@ -4,7 +4,7 @@
         "name": "node-start",
         "script": "./dist/index.js",
         "env": {
-          "PORT": 1503
+          "PORT": 3002
         }
       }
     ]
