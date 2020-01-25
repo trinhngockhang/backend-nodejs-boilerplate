@@ -1,5 +1,6 @@
 import * as dbUtil from '../../util/databaseUtil';
 import uuidv4 from 'uuid/v4';
+import { ERRORS } from '../../constant';
 
 export const getUserByUsername = async (username) => {
   const sql = 'SELECT id,username,password FROM users WHERE username = ? LIMIT 1';
@@ -8,7 +9,7 @@ export const getUserByUsername = async (username) => {
 export const signUp = async ({ username, passwordHash, name }) => {
   const check = await checkUserExist(username);
   if (check) {
-    return Promise.reject();
+    return Promise.reject(ERRORS.USER_EXIST);
   }
   const sql = 'INSERT INTO users(id,username, password, name) VALUES (?, ?, ?, ?)';
   const id = uuidv4();

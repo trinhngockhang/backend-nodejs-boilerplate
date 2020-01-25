@@ -6,4 +6,5 @@ export const ERRORS = {
   UNAUTHORIZED_ERROR: createError.Unauthorized('Không được cấp quyền!'),
   INVALID_PASSWORD_ERROR: createError.BadRequest('Mật khẩu sai!'),
   NOTHING_CHANGED: createError.BadGateway('Không có gì thay đổi'),
+  USER_EXIST: createError.BadRequest('Tài khoản đã tồn tại'),
 };

@@ -8,7 +8,7 @@ export const login = async (req, res) => {
   const { username, password } = req.body;
   const user = await dbAccess.getUserByUsername(username);
   if (user) {
-    const passwordValid = await common.checkPassword(password, user.passwordHash);
+    const passwordValid = await common.checkPassword(password, user.password);
     if (passwordValid) {
       const token = await common.generateToken(user.id);
       return res.json({ token });
