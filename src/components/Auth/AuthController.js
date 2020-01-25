@@ -4,6 +4,12 @@ import * as dbAccess from './AuthDAL';
 import { ERRORS } from '../../constant';
 import { hash } from '../../util/bcryptUtil';
 
+export const getMe = async (req, res) => {
+  const { userId } = req;
+  const user = await dbAccess.getUserById(userId);
+  res.send(user);
+};
+
 export const login = async (req, res) => {
   const { username, password } = req.body;
   const user = await dbAccess.getUserByUsername(username);
@@ -22,6 +28,7 @@ export const signUp = async (req, res) => {
   const { username, password, name, rePassword } = req.body;
   if (password !== rePassword) {
     res.status(401).send('WRONG_REPASS');
+    return;
   }
   const passwordHash = hash(password);
   await dbAccess.signUp({ username, passwordHash, name });

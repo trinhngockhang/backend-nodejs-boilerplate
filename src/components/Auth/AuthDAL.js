@@ -24,3 +24,9 @@ export const checkUserExist = async (username) => {
   }
   return false;
 };
+
+export const getUserById = async (userId) => {
+  const sql = 'SELECT username, name, createdAt FROM users WHERE id = ?';
+  const user = await dbUtil.queryOne(sql, [userId]);
+  return user;
+};
