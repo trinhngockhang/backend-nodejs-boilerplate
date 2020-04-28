@@ -17,7 +17,8 @@ export const login = async (req, res) => {
     const passwordValid = await common.checkPassword(password, user.password);
     if (passwordValid) {
       const token = await common.generateToken(user.id);
-      return res.json({ token });
+      const refreshToken = await dbAccess.getRefreshToken(token);
+      return res.json({ token, refreshToken });
     }
     return Promise.reject(ERRORS.INVALID_PASSWORD_ERROR);
   }
@@ -34,6 +35,8 @@ export const signUp = async (req, res) => {
   await dbAccess.signUp({ username, passwordHash, name });
   res.ok();
 };
-// export const getme = async (req, res) => {
 
-// };
+export const refreshToken = async (req, res) => {
+  const { refreshToken: oldRefreshToken } = req.body;
+  res.json(await dbAccess.refreshToken(oldRefreshToken));
+};

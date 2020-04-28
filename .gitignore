@@ -4,3 +4,4 @@ dist_dev
 
 .vscode
 logs
+.env.prod

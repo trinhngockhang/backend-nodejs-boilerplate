@@ -3,6 +3,6 @@ import { checkValidateError } from '../../middleware';
 
 export const loginValidator = [
   body('username').exists({ checkFalsy: true }),
-  body('password').custom(value => Boolean(value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{6,20}$/g))),
+  // body('password').custom(value => Boolean(value.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{6,20}$/g))),
   checkValidateError,
 ];

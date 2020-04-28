@@ -13,6 +13,8 @@ router.get('/getme', authMiddleware, requireLogin, throwAsNext(controller.getMe)
 router.post('/login', loginValidator, throwAsNext(controller.login));
 // --- Sign up ---
 router.post('/signUp', throwAsNext(controller.signUp));
+// --- Refresh Token ---
+router.post('/refresh-token', throwAsNext(controller.refreshToken));
 // registerSubrouter
 
 // export

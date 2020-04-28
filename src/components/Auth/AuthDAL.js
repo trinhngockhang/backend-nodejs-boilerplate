@@ -1,6 +1,8 @@
 import * as dbUtil from '../../util/databaseUtil';
 import uuidv4 from 'uuid/v4';
-import { ERRORS } from '../../constant';
+import { ERRORS, REDIS, TOKEN } from '../../constant';
+import redisUtil from '../../util/redisUtil';
+import * as common from './common';
 
 export const getUserByUsername = async (username) => {
   const sql = 'SELECT id,username,password FROM users WHERE username = ? LIMIT 1';
@@ -29,4 +31,22 @@ export const getUserById = async (userId) => {
   const sql = 'SELECT username, name, createdAt FROM users WHERE id = ?';
   const user = await dbUtil.queryOne(sql, [userId]);
   return user;
+};
+
+export const getRefreshToken = async (token) => {
+  const refreshToken = uuidv4();
+  redisUtil.setAsync(`${REDIS.REFRESH_TOKEN_PREFIX}:${refreshToken}`, token, 'ex', TOKEN.REFRESH_TOKEN_EXPIRED).catch(() => { });
+  return refreshToken;
+};
+
+export const refreshToken = async (oldRefreshToken) => {
+  const oldToken = await redisUtil.getAsync(`${REDIS.REFRESH_TOKEN_PREFIX}:${oldRefreshToken}`);
+  const { id } = await common.getUserInfoFromToken(oldToken);
+  const newToken = await common.generateToken(id);
+  const newRefreshToken = uuidv4();
+  await Promise.all([
+    redisUtil.delAsync(`${REDIS.REFRESH_TOKEN_PREFIX}:${oldRefreshToken}`),
+    redisUtil.setAsync(`${REDIS.REFRESH_TOKEN_PREFIX}:${newRefreshToken}`, newToken, 'ex', TOKEN.REFRESH_TOKEN_EXPIRED),
+  ]);
+  return { token: newToken, refreshToken: newRefreshToken };
 };
