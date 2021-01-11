@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 export const hash = text => bcrypt.hashSync(text, bcrypt.genSaltSync(12));
 

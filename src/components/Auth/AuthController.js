@@ -3,6 +3,7 @@ import * as common from './common';
 import * as dbAccess from './AuthDAL';
 import { ERRORS } from '../../constant';
 import { hash } from '../../util/bcryptUtil';
+import { buildSuccessResponse } from '../../util/responseUtil';
 
 export const getMe = async (req, res) => {
   const { userId } = req;
@@ -18,7 +19,7 @@ export const login = async (req, res) => {
     if (passwordValid) {
       const token = await common.generateToken(user.id);
       const refreshToken = await dbAccess.getRefreshToken(token);
-      return res.json({ token, refreshToken });
+      return res.json(buildSuccessResponse({ token, refreshToken }));
     }
     return Promise.reject(ERRORS.INVALID_PASSWORD_ERROR);
   }
@@ -28,7 +29,7 @@ export const login = async (req, res) => {
 export const signUp = async (req, res) => {
   const { username, password, name, rePassword } = req.body;
   if (password !== rePassword) {
-    res.status(401).send('WRONG_REPASS');
+    res.status(400).send("adsdasdas");
     return;
   }
   const passwordHash = hash(password);
